@@ -19,7 +19,7 @@ public record DadosAtualizacaoAnuncio(
         Boolean exibir,
         String localidade) {
         public DadosAtualizacaoAnuncio {
-                if (dataFim.before(dataInicio)) {
+                if (dataFim != null && dataInicio != null && dataFim.before(dataInicio)) {
                         throw new IllegalArgumentException("A data de término não pode ser anterior à data de início.");
                 }
         }
