@@ -1,33 +1,28 @@
-CREATE TABLE `meudb`.`TIPOUSUARIOS`(
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    descricao VARCHAR(100) NOT NULL,
-
-    PRIMARY KEY (id)
+CREATE TABLE `meudb`.`usuarios`
+(
+    id           bigint       NOT NULL AUTO_INCREMENT,
+    nome         varchar(100) NOT NULL,
+    email        varchar(100) NOT NULL,
+    senha        varchar(100) NOT NULL,
+    tipo_usuario char(1)      NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY email (email)
 );
 
-CREATE TABLE `meudb`.`usuarios` (
-    id bigint NOT NULL AUTO_INCREMENT,
-    idTipoUsuario bigint not null,
-    nome varchar(100) not null,
-    email varchar(100) not null unique,
-    senha varchar(100) not null,
-
+CREATE TABLE `meudb`.`anuncios`
+(
+    id                bigint       NOT NULL AUTO_INCREMENT,
+    id_usuario        bigint                DEFAULT NULL,
+    area_conhecimento varchar(100)          DEFAULT NULL,
+    descricao         varchar(100) NOT NULL,
+    telefone          varchar(20)  NOT NULL,
+    email             varchar(100) NOT NULL,
+    data_inicio       date                  DEFAULT NULL,
+    data_fim          date                  DEFAULT NULL,
+    exibir            char(1)      NOT NULL,
+    localidade        varchar(100) NOT NULL,
+    status            char(1)      NOT NULL DEFAULT '1',
     PRIMARY KEY (id),
-    FOREIGN KEY (idTipoUsuario) REFERENCES TIPOUSUARIOS(id)
-);
-
-CREATE TABLE `meudb`.`anuncios` (
-    id bigint NOT NULL AUTO_INCREMENT,
-    idUsuario bigint NOT NULL,
-    areaConhecimento varchar(100) NOT NULL,
-    descricao varchar(100) NOT NULL,
-    telefone varchar(20) NOT NULL,
-    email varchar(100) NOT NULL,
-    dataInicio date NOT NULL,
-    dataFim date NOT NULL,
-    exibir char(1) NOT NULL,
-    localidade varchar(100) NOT NULL,
-
-    PRIMARY KEY (id),
-    FOREIGN KEY (idUsuario) REFERENCES usuarios(id)
+    KEY               idUsuario (id_usuario),
+    CONSTRAINT anuncios_ibfk_1 FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
 );

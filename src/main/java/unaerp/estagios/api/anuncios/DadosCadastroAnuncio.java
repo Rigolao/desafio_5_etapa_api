@@ -29,9 +29,10 @@ public record DadosCadastroAnuncio(
         @DateTimeFormat(pattern = "dd/MM/YYYY")
         Date dataFim,
         @NotNull
-        Boolean exibir,
+        String exibir,
         @NotBlank
-        String localidade) {
+        String localidade,
+        Float remuneracao) {
     public DadosCadastroAnuncio {
         if (dataFim.before(dataInicio)) {
             throw new IllegalArgumentException("A data de término não pode ser anterior à data de início.");

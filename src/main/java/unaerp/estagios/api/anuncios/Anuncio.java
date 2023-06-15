@@ -28,9 +28,10 @@ public class Anuncio {
     private String telefone;
     private Date dataInicio;
     private Date dataFim;
-    private Boolean exibir;
-    private Boolean status;
+    private String exibir;
+    private Integer status;
     private String localidade;
+    private Float remuneracao;
 
     public Anuncio(DadosCadastroAnuncio dados) {
         this.areaConhecimento = dados.areaConhecimento();
@@ -41,7 +42,8 @@ public class Anuncio {
         this.dataInicio = dados.dataInicio();
         this.exibir = dados.exibir();
         this.localidade = dados.localidade();
-        this.status = true;
+        this.status = 1;
+        this.remuneracao = dados.remuneracao();
     }
 
     public void atualizarInformacoes(DadosAtualizacaoAnuncio dados) {
@@ -72,6 +74,6 @@ public class Anuncio {
     }
 
     public void excluir () {
-        this.status = false;
+        this.status = 0;
     }
 }

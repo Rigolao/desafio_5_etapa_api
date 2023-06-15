@@ -16,7 +16,7 @@ public record DadosAtualizacaoAnuncio(
         @JsonFormat(pattern = "dd/MM/yyyy")
         @DateTimeFormat(pattern = "dd/MM/YYYY")
         Date dataFim,
-        Boolean exibir,
+        String exibir,
         String localidade) {
         public DadosAtualizacaoAnuncio {
                 if (dataFim != null && dataInicio != null && dataFim.before(dataInicio)) {

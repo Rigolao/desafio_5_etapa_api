@@ -10,7 +10,9 @@ import unaerp.estagios.api.anuncios.*;
 import unaerp.estagios.api.usuarios.Usuario;
 import unaerp.estagios.api.usuarios.UsuarioRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("vagas")
@@ -25,7 +27,6 @@ public class AnuncioController {
     @PostMapping
     @Transactional
     public void cadastrar(@RequestBody @Valid DadosCadastroAnuncio dados) {
-
         Anuncio anuncio = new Anuncio(dados);
         Usuario usuario = usuarioRepository.findById(dados.idUsuario()).orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
         anuncio.setUsuario(usuario);
@@ -34,8 +35,8 @@ public class AnuncioController {
     }
 
     @GetMapping
-    public Page<DadosListagemAnuncio> listar(Pageable paginacao) {
-        return anuncioRepository.findAnunciosExibiveis(paginacao).map(DadosListagemAnuncio::new);
+    public List<DadosListagemAnuncio> listar() {
+        return anuncioRepository.findAll().stream().map(DadosListagemAnuncio::new).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
