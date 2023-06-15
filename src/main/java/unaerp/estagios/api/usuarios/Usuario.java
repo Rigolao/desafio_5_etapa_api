@@ -18,7 +18,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "tipoUsuario")
-    private Boolean tipoUsuario; // TRUE: USUARIO(1), FALSE: ANUNCIANTE(0)
+    private Boolean tipoUsuario; // TRUE: ANUNCIANTE(1), FALSE: USUARIO(0)
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Anuncio> anuncios;
     private String nome;

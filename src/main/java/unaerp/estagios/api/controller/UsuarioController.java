@@ -9,7 +9,7 @@ import unaerp.estagios.api.usuarios.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("login")
+@RequestMapping("user")
 public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -28,6 +28,7 @@ public class UsuarioController {
     @PutMapping("{id}")
     @Transactional
     public void atualizar (@PathVariable Long id, @RequestBody DadosAtualizacaoUsuario dados) {
+
        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
        if (usuarioOptional.isPresent()){
            Usuario usuario = usuarioOptional.get();
@@ -35,6 +36,17 @@ public class UsuarioController {
        } else {
            throw new RuntimeException("Usuario não encontrado com o ID: " + id);
        }
+    }
+
+    @PostMapping("/login")
+    public DadosUsuario autenticar (@RequestBody DadosLoginUsuario dados){
+        Usuario usuario = usuarioRepository.findByEmail(dados.email());
+
+        if (usuario != null && usuario.getSenha().equals(dados.senha())){
+               return new DadosUsuario(usuario);
+        }
+
+        throw new RuntimeException("Usuário ou senha incorreto");
     }
 
     @GetMapping("{id}")
