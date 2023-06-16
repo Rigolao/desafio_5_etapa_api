@@ -4,10 +4,7 @@ import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import unaerp.estagios.api.usuarios.UsuarioRepository;
 import unaerp.estagios.api.usuarios.Usuario;
 
@@ -21,10 +18,20 @@ public class EmailController {
 
 
 
-    @RequestMapping(path = "/email-send/{id}", method = RequestMethod.POST)
-    public String sendMail(@PathVariable("id") Long id) {
+    @RequestMapping(path = "/email-send", method = RequestMethod.POST)
+    public String sendMail(@RequestBody String email) {
 
-        Usuario usuario = usuarioRepository.getReferenceById(id);
+        Usuario usuario;
+
+        try {
+            usuario = usuarioRepository.findByEmail(email);
+        } catch (Exception e){
+            throw new RuntimeException("Usuário não encontrado com o email: " + email);
+        }
+
+        if(usuario == null) {
+            return "Usuário não encontrado com o email: " + email;
+        }
 
         String emailContent = "<!DOCTYPE html>\n" +
                 "<html>\n" +

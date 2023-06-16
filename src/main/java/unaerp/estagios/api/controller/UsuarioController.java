@@ -59,5 +59,15 @@ public class UsuarioController {
         throw new RuntimeException("Usuário não cadastro com o ID: " + id);
     }
 
+    @DeleteMapping("{id}")
+    public void deletar(@PathVariable Long id){
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        if (usuarioOptional.isPresent()) {
+            Usuario usuario = usuarioOptional.get();
+            usuarioRepository.delete(usuario);
+        } else {
+            throw new RuntimeException("Usuário não encontrado com o ID: " + id);
+        }
+    }
 
 }

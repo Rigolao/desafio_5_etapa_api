@@ -24,6 +24,6 @@ public record DadosListagemAnuncio(
         Float remuneracao,
         DadosUsuario dadosUsuario) {
     public DadosListagemAnuncio(Anuncio anuncio) {
-        this(anuncio.getId(), anuncio.getAreaConhecimento(), anuncio.getDescricao(), anuncio.getEmail(), anuncio.getTelefone(), anuncio.getDataInicio(), anuncio.getDataFim(), anuncio.getLocalidade(), anuncio.getExibir(), anuncio.getStatus(), anuncio.getRemuneracao(), new DadosUsuario(anuncio.getUsuario().getId(), anuncio.getUsuario().getNome(), anuncio.getUsuario().getSenha(), anuncio.getUsuario().getEmail()));
+        this(anuncio.getId(), anuncio.getAreaConhecimento(), anuncio.getDescricao(), anuncio.getEmail(), anuncio.getTelefone(), anuncio.getDataInicio(), anuncio.getDataFim(), anuncio.getLocalidade(), anuncio.getExibir(), anuncio.getStatus(), anuncio.getRemuneracao(), new DadosUsuario(anuncio.getUsuario().getId(), anuncio.getUsuario().getNome(), anuncio.getUsuario().getSenha(), anuncio.getUsuario().getEmail(), anuncio.getUsuario().getTipoUsuario() ? 1 : 0));
     }
 }
